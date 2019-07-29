@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="card  mb-3 mt-lg-5 offset-3 shadow-lg" style="max-width: 50%;">
+            <div class="card-header bg-success text-white">
+                <h6><i class="fa fa-user-nurse"> </i><i class="fa fa-wheelchair"></i> &nbsp;&nbsp;{{ request.args.huduma_number}} Record New Patient</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {{form.hidden_tag()}}
+                    <div class="form-group">
+                        {{form.fullname.label(class='form-control-label')|safe}}
+                        {% if form.fullname.errors %}
+                        {{form.fullname(class='form-control is-invalid form-control-sm')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.fullname(class='form-control form-control-sm')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.huduma_number.label(class='form-control-label')|safe}}
+                        {% if form.huduma_number.errors %}
+                        {{form.huduma_number(class='form-control is-invalid form-control-sm')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.huduma_number.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.huduma_number(class='form-control form-control-sm',value=session.huduma_number)}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.submit(class='btn btn-lg btn-block btn-success')}}
+                    </div>
+                    <div class="form-group">
+                        <a href="/referrals" class="btn btn-danger btn-block">Exit</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

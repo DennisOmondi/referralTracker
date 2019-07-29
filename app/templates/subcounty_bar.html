@@ -1,0 +1,18 @@
+<div class="card  mb-3 shadow-lg offset-2 " style="max-width: auto;">
+    <div class="card-header bg-primary text-white">
+        <h6><i class="fa fa-list"></i> &nbsp;&nbsp; Sub Counties</h6>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            {% for subcounty in all_subs %}
+            
+            <a href="/subcounty/{{subcounty.county_name }}" class="list-group-item list-group-item-action {% if subcounty.county_name == active_sub %} active {%endif %}">&nbsp;
+                <strong><i class="fa fa-globe"></i> {{ subcounty.county_name }}</strong>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-footer">
+    <a href="/sub_counties" style="text-decoration: none"><button class="btn btn-success btn-block"><i class="fa fa-arrow-left"></i> &nbsp;Back</button></a>
+    </div>
+</div>

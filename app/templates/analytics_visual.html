@@ -1,0 +1,185 @@
+{% extends 'master.html' %}
+{% block script %}
+<script src="{{url_for('static',filename='js/Chart.bundle.min.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3" style="margin-left: -3%;">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm">
+                <div class="card  mb-3 shadow-lg" style="max-width:115%;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-chart-line"></i> &nbsp;&nbsp; Referrals Analytics</h6>
+                        <a href="/analytics_visual" style="text-decoration: none"><small class="float-right text-white" style="margin-top:-26px;"
+                             title="Reload if colors displayed are not distinct" >
+                            <i class="fa fa-undo" style="color:white;"></i> Reload</small></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="card shadow">
+                                    <div class="card-header" style="max-height: 38px;"><small><strong>Incoming
+                                                referrals</strong></small></div>
+                                    <div class="card-body">
+                                        <canvas id="incoming"></canvas>
+                                        <small class="text-primary">N/B : Facilities not visualized have '0' incoming referrals</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <div class="card shadow" style="min-height: 255px;">
+                                        <div class="card-header" style="max-height: 38px;"><small><strong>Outgoing
+                                                    referrals</strong></small></div>
+                                        <div class="card-body">
+                                            <canvas id="outgoing"></canvas>
+                                            <small class="text-primary">N/B : Facilities not visualized have '0' outgoing referrals</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card shadow">
+                                    <div class="card-header" style="max-height: 38px;"><small><strong>Monthly referrals distribution</strong></small></div>
+                                    <div class="card-body">
+                                        <canvas id="months"></canvas>
+                                        <small class="text-primary">N/B : Referral reasons not visualized have '0' referrals</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <div class="card shadow pb-lg-5" style="min-height: 255px;">
+                                        <div class="card-header" style="max-height: 38px;"><small><strong>Reasons for
+                                        referrals</strong></small>
+                                        </div>
+                                        <div class="card-body">
+                                            <canvas id="myChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+
+
+
+
+                    <script>
+                        len={{ reasons_title|length }};
+                        let bgIn=[];
+                        let bgOut = [];
+                        let bgRsn = [];
+                        let bgMonth=[];
+                        for (i = 0; i < len; i++) {
+                        r = Math.floor((Math.random()*130)+10)
+                        g = Math.ceil((Math.random() * 100) + 100)
+                        b = Math.floor((Math.random() * 130) + 50)
+                        
+                            colorIn="rgb("+r+","+g+","+b+")";
+                            colorOut = "rgb(" + g + "," + b + "," + r + ")";
+                            colorRsn = "rgb(" + b + "," + r + "," + g + ")";
+                            colorMonth = "rgb(" + b + "," + g + "," + r + ")";
+                            bgIn.push(colorIn);
+                            bgOut.push(colorOut);
+                            bgRsn.push(colorRsn);
+                            bgMonth.push(colorMonth);
+                        }
+                        //console.log(bg);
+
+                        //incomings
+                        var ctxIncoming = document.getElementById('incoming').getContext('2d');
+                            var chart = new Chart(ctxIncoming, {
+                                type: 'pie',
+                                data: {
+                                    labels: {{ incomings_facility| safe }},
+                                datasets: [{
+                                label: '',
+                                backgroundColor: bgIn,
+                                borderColor: 'rgb(255,255,255)',
+                                data: {{ incomings_counts| safe }},
+                                    }]
+                                },
+                                options: {
+                                scales:{}
+                            }
+                            });    
+
+
+                            //outgoing
+                            var ctxOutgoing = document.getElementById('outgoing').getContext('2d');
+                                var chart = new Chart(ctxOutgoing, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: {{ outgoings_facility| safe }},
+                                    datasets: [{
+                                    label: 'distribution',
+                                    backgroundColor: bgOut,
+                                    borderColor: 'rgb(255,255,255)',
+                                    data: {{ outgoings_counts| safe }},
+                                    }]
+                                },
+                                    options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            }); 
+
+                            //reasons
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                            var chart = new Chart(ctx, {
+                                type: 'pie',
+                                data: {
+                                    labels:{{ reasons_title|safe }},
+                                    datasets: [{
+                                        label: 'nn',
+                                        backgroundColor: bgRsn,
+                                        borderColor: 'rgb(255,255,255)',
+                                        data: {{ reasons_count| safe }},
+                                    }]
+                                },
+                                options: {
+                                    
+                                }
+                            });
+                       
+                             //monthly distribution
+                                var ctxMonth = document.getElementById('months').getContext('2d');
+                                var chart = new Chart(ctxMonth, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                                datasets: [{
+                                    label: 'outgoing',
+                                    backgroundColor: 'rgb(55,155,255)',
+                                    borderColor: 'rgb(55,155,255)',
+                                    data: {{ monthly_refs| safe }},
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            }); 
+                    </script>
+
+
+
+{% endblock %}

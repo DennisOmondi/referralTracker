@@ -1,0 +1,89 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-ambulance"></i> &nbsp;&nbsp; Hospital Referrals</h6>
+                    </div>
+                    <div class="card-body" style="padding-top:-3px;">
+                        <a class="btn btn-success btn-sm float-right mb-2" href="/new_referral"><i class="fa fa-plus"></i> New Referral</a>
+                        <div class="form-group">
+                            <form action="" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{csrf_token() }}">
+                            <input type="text" name="searchq" class="form-control form-control-sm" placeholder="e.g RF0001">
+                            <p class="text-warning">{{error}}</p>
+                            </form>
+
+                            <form class="form-inline" action="" method="POST">
+                                <div class="form-group">
+                                    <input type="hidden" name="csrf_token" value="{{csrf_token() }}">
+                                    <label for='filter'>Filter by: &nbsp;</label>
+                                      <select name="searchq"class="form-control form-control-sm">
+                                        <option value="">-Select Period-</option>
+                                        <option value="today">Today</option>
+                                        <option value="month">Current month</option>
+                                        <option value="year">Current year</option>
+                                      </select> &nbsp;
+                                      <button type="submit" style="height: 32px;"class="btn btn-primary btn-sm"><i class='fa fa-filter' style="color:white;"></i> Filter </button>
+                                </div>
+                            </form>
+                        </div>
+                        <table class="table table-hover" style="margin-bottom: -5px;">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Referral No</th>
+                            
+                                <th scope="col"><i class="fa fa-info"></i> Reason</th>
+                                <th scope="col"><i class="fa fa-calendar"></i> Date</th>
+                                <th scope="col"><i class="fa fa-wrench"></i> Action</th>
+                            </tr>
+                        </table>
+                        <div style="height: 300px; overflow: auto">
+                        <table class="table table-hover">
+                            <thead>
+                               
+                            </thead>
+                            
+                            <tbody>
+                                
+                                {% for referral in referrals.items %}
+                                <tr style='max-height: 50%';>
+                                    <td>{{ referral.id }}</td>
+                                    <td>{{ referral.referral_id }}</td>
+                                    
+                                    <td>{{ referral.reasons.title }}</td>
+                                    <td>{{ referral.referral_datetime.strftime('%Y/%m/%d') }}</td>
+                                    <td>
+                                        <a href="/referral_detail/{{ referral.referral_id }} "><button type="button" class="btn btn-outline-success btn-sm"> More <i class="fa fa-plus"></i></button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                    
+                            </tbody>
+                        </table></div>
+                    </div>
+                </div>
+                {% for page_num in referrals.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+                    {% if page_num %}
+                        {% if referrals.page==page_num %}
+                        <a class="btn btn-primary" href="{{ url_for('referrals',page=page_num)}}">{{ page_num }}</a>
+                        {% else %}
+                        <a class="btn btn-outline-primary" href="{{ url_for('referrals',page=page_num)}}">{{ page_num }}</a>
+                        {% endif %}
+
+                    {% else %}
+                    ....
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

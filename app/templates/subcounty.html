@@ -1,0 +1,57 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'subcounty_bar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-hospital-alt"></i> &nbsp;&nbsp;{{ subcounty }} Sub County/Health Facilities</h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="/new_health_facility"  style="text-decoration: none;"><button class="btn btn-sm btn-success offset-10 mb-2"><i
+                                    class="fa fa-plus"></i> &nbsp;New Facility</button></a>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col"><i class="fa fa-code"></i> MFL Code</th>
+                                    <th scope="col">Facility Name</th>
+                                    <th scope="col"><i class="fa fa-user-nurse"></i> Medical Personel </th>
+                                    <th scope="col"><i class="fa fa-wrench"></i> Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if health_facilities|length >0 %}
+                                {% for facility in health_facilities %}
+                                <tr>
+                                    <td>{{ facility.id }}</td>
+                                    <td>{{ facility.mfl_code }}</td>
+                                    <td>{{ facility.name }}</td>
+                                    <td>{{ facility.medics|length }}</td>
+                                    <td>
+                                        <a href="/facility/{{ facility.mfl_code }}"><button type="button" class="btn btn-outline-success btn-sm">
+                                                See referrals</button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <div class="alert alert-dismissible alert-warning">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <h4 class="alert-heading"><i class="fa fa-ban"></i> Alert!</h4>
+                                    <p class="mb-0">No Health Facilities registered! </p>
+                                </div>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

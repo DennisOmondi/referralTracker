@@ -1,0 +1,87 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: 120%;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-chart-line"></i> &nbsp;&nbsp; Referrals Analytics</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="card shadow">
+                                    <div class="card-header" style="max-height: 38px;"><small><strong>Incoming referrals</strong></small></div>
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            {%for incoming in incomings%}
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{ incoming.facility}}
+                                                <span class="badge badge-primary badge-pill">{{incoming.incoming}}</span>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <small class="text-primary">N/B : Facilities not listed have '0' incoming referrals</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <div class="card shadow" style="min-height: 255px;">
+                                        <div class="card-header" style="max-height: 38px;"><small><strong>Outgoing referrals</strong></small></div>
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                {%for outgoing in outgoings%}
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    {{ outgoing.facility}}
+                                                    <span class="badge badge-primary badge-pill">{{outgoing.outgoing}}</span>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <small class="text-primary">N/B : Facilities not listed have '0' outgoing referrals</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                    <div class="card shadow">
+                                        <div class="card-header" style="max-height: 38px;"><small><strong>Reasons for referrals</strong></small></div>
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                {%for reason in reasons%}
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    {{ reason.title}}
+                                                    <span class="badge badge-primary badge-pill">{{reason.reason}}</span>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <small class="text-primary">N/B : Referral reasons not listed have '0' referrals</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col">
+                                <div class="col">
+                                    <div class="card shadow" style="min-height: 255px;">
+                                        <div class="card-header" style="max-height: 38px;"><small><strong>Coming soon</strong></small></div>
+                                        <div class="card-body">
+                                            <img src="{{ url_for('static',filename='img/error404.png') }}">
+                                            <a class="btn btn-success" href="/analytics_visual"><i class="fa fa-eye" style="color:white"> See visual analytics instead</i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

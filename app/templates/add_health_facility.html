@@ -1,0 +1,67 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="card  mb-3 mt-lg-5 offset-3 shadow-lg" style="max-width: 50%;">
+            <div class="card-header bg-success text-white">
+                <h6><i class="fa fa-hospital"> </i>&nbsp;&nbsp;New Health Facility</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {{form.hidden_tag()}}
+                    <div class="form-group">
+                        {{form.name.label(class='form-control-label')|safe}}
+                        {% if form.name.errors %}
+                        {{form.name(class='form-control is-invalid')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.name(class='form-control')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.mfl_code.label(class='form-control-label')|safe}}
+                        {% if form.mfl_code.errors %}
+                        {{form.mfl_code(class='form-control is-invalid')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.mfl_code.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.mfl_code(class='form-control')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.phone.label(class='form-control-label')|safe}}
+                        {% if form.phone.errors %}
+                        {{form.phone(class='form-control is-invalid')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.phone(class='form-control')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.sub_county.label(class='form-control-label')|safe}}
+                        {{form.sub_county(class='form-control')}}
+                    </div>
+                    <div class="form-group">
+                        {{form.submit(class='btn btn-lg btn-block btn-success')}}
+                    </div>
+                    <div class="form-group">
+                        <a href="/health_facilities" class="btn btn-danger btn-block">Exit</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

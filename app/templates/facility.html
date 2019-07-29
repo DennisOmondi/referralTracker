@@ -1,0 +1,49 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'facility_bar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-ambulance"></i> &nbsp;&nbsp;{{facility.name}} /Hospital Referrals</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                    <th scope="col">Referral No</th>
+                                    <th scope="col"><i class="fa fa-id-wheelchair"></i> Type</th>
+                                    <th scope="col"><i class="fa fa-info"></i> Reason</th>
+                                    <th scope="col"><i class="fa fa-calendar"></i> Date</th>
+                                    <th scope="col"><i class="fa fa-wrench"></i> Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for referral in referrals|reverse %}
+                                <tr>
+                                    
+                                    <td>{{ referral.referral_id }}</td>
+                                    <td>{% if referral.referral_from_id==facility.id %}Outgoing{% else%}Incoming {%endif %}</td>
+                                    <td>{{ referral.reasons.title }}</td>
+                                    <td>{{ referral.referral_datetime.strftime('%Y/%m/%d') }}</td>
+                                    <td>
+                                        <a href="/referral_detail/{{ referral.referral_id }} "><button type="button" class="btn btn-outline-success btn-sm"> More <i
+                                                class="fa fa-plus"></i></button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

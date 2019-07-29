@@ -1,0 +1,19 @@
+<div class="card  mb-3 shadow-lg offset-2 " style="max-width: auto;">
+    <div class="card-header bg-primary text-white">
+        <h6><i class="fa fa-hospital"></i> &nbsp;&nbsp; Health Facilities</h6>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            {% for facility in all_facility %}
+            <a href="/facility/{{facility.mfl_code }}"
+                class="list-group-item list-group-item-action {% if facility.mfl_code == active_facility %} active {%endif %}">&nbsp;
+                <strong><i class="fa fa-globe"></i> {{ facility.name }}</strong>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="/sub_counties" style="text-decoration: none"><button class="btn btn-success btn-block"><i
+                    class="fa fa-arrow-left"></i> &nbsp;Back</button></a>
+    </div>
+</div>

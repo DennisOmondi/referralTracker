@@ -1,0 +1,17 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="page-wrap d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <img src="{{ url_for('static',filename='img/error404.png') }}">
+                    <span class="display-1 d-block">404</span>
+                    <div class="mb-4 lead">Regretfully,we cant find what you are looking for</div>
+                    <a href="/admin_panel" class="btn btn-link">Take me Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

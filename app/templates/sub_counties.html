@@ -1,0 +1,51 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6><i class="fa fa-globe-europe"></i> &nbsp;&nbsp; Sub Counties </h6>
+                            </div>
+                            <div class="col-md-4" style='align-items: left'>
+                                <a href="{{ url_for('new_sub_county') }}"><button class="btn btn-default bt-sm bg-light offset-4"><i class="fa fa-plus"></i> Add SubCounty</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Sub County Name</th>
+                                    <th scope="col"><i class="fa fa-hospital-alt"></i> Total Facilities</th>
+                                    <th scope="col"><i class="fa fa-wrench"></i> Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sub_county in sub_counties %}
+                                <tr>
+                                    <td>{{ sub_county.id }}</td>
+                                    <td>{{ sub_county.county_name }} &nbsp;Sub County</td>
+                                    <td>{{ sub_county.health_facilities|length }}</td>
+                                    <td>
+                                        <a href="/subcounty/{{ sub_county.county_name }}"><button type="button" class="btn btn-outline-success btn-sm">Health facilities</button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

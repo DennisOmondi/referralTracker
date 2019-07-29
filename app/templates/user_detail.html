@@ -1,0 +1,53 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3  shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-users"></i> &nbsp;&nbsp; User Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="content ml-lg-5">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Full Name:<label class="offset-1"> {{ user.fullname }}</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email :<label style="margin-left: 12%"> {{ user.email}}</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employee ID :<label style="margin-left: 6%">{{ user.employee_id}}</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hospital : <label
+                                                style="margin-left: 9.5%">{{ user.user_facility.name}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Role :<label style="margin-left: 13.7%"> {% if user.is_admin %} Admin {% else%} Clerk {%endif %}</label>
+                                        </td>
+                                    </tr>
+                         
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="{{ url_for('change_role',user_id=user.id) }}" style="max-width: 90%;" class="btn btn-block btn-success m-auto">{% if user.is_admin %} Change to Clerk {% else%} Change to Admin {%endif %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

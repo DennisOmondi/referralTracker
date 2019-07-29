@@ -1,0 +1,59 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-sm-3">
+                {% include 'sidebar.html'%}
+            </div>
+            <div class="col-sm-8">
+                <div class="card  mb-3 shadow-lg" style="max-width: auto;">
+                    <div class="card-header bg-primary text-white">
+                        <h6><i class="fa fa-ambulance"></i> &nbsp;&nbsp; Referral Details</h6>
+                    </div>
+                    <div class="card-body">
+                    <div class="content ml-lg-5">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Referral No:<label class="offset-1"> {{ referral.referral_id }}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>From :<label style="margin-left: 13%" > {{ referral.from_.name}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>To :<label style="margin-left: 15.5%">{{ referral.to_.name}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>Date : <label style="margin-left: 12.9%">{{ referral.referral_datetime.strftime('%Y/%m/%d')}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>Patient No:<label style="margin-left: 9%"> {{ patient.huduma_id}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>Patient Name:<label style="margin-left: 6.5%"> {{ patient.fullname}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td>Medic :<label style="margin-left: 12.7%">{{ referral.referred_medic.fullname}}-{{ referral.referred_medic.mpdb_number}}</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Reason :</label>
+                                    <p class="offset-1" style="margin-top: -32px;margin-left: 19%">{{ referral.notes}}</p></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

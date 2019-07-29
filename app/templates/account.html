@@ -1,0 +1,89 @@
+{% extends 'master.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="content-section">
+        <div class="card  mb-3 mt-3 offset-3 shadow-lg" style="max-width: 50%;">
+            <div class="card-header bg-success text-white">
+                <h6><i class="fa fa-user-plus"> </i>&nbsp;&nbsp;Change Credentials</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {{form.hidden_tag()}}
+                    <div class="form-group">
+                        {{form.fullname.label(class='form-control-label')|safe}}
+                        {% if form.fullname.errors %}
+                        {{form.fullname(class='form-control is-invalid form-control-sm' ,readonly='true')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.fullname.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.fullname(class='form-control form-control-sm',readonly='true')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.email.label(class='form-control-label')|safe}}
+                        {% if form.email.errors %}
+                        {{form.email(class='form-control is-invalid form-control-sm',readonly='true')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.email(class='form-control form-control-sm',readonly='true')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.old_password.label(class='form-control-label')|safe}}
+                        {% if form.old_password.errors %}
+                        {{form.old_password(class='form-control is-invalid form-control-sm')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.old_password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {%else %}
+                        {{form.old_password(class='form-control form-control-sm')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.new_password.label(class='form-control-label')|safe}}
+                        {% if form.new_password.errors %}
+                        {{form.new_password(class='form-control form-control-sm is-invalid')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.new_password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.new_password(class='form-control form-control-sm')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.confirm.label(class='form-control-label')|safe}}
+                        {% if form.confirm.errors %}
+                        {{form.confirm(class='form-control form-control-sm is-invalid')}}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{form.confirm(class='form-control form-control-sm')}}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{form.submit(class='btn btn-lg btn-block btn-success')}}
+                    </div>
+                    <div class="form-group">
+                        <a href="/admin_panel" class="btn btn-danger btn-block">Exit</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
